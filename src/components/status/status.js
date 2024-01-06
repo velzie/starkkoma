@@ -441,7 +441,13 @@ const Status = {
       return this.$i18n.t('general.scope_in_timeline.' + this.status.visibility)
     },
     isEdited () {
-      return this.status.edited_at !== null
+      if (this.status.hasOwnProperty('edited_at')) {
+        return this.status.edited_at !== null
+      }
+      else 
+      {
+        return false
+      };
     },
     editingAvailable () {
       return this.$store.state.instance.editingAvailable
@@ -452,10 +458,16 @@ const Status = {
       switch (visibility) {
         case 'private':
           return 'lock'
+        case 'followers':
+          return 'lock'
         case 'unlisted':
           return 'lock-open'
+        case 'home':
+          return 'lock-open'          
         case 'direct':
           return 'envelope'
+        case 'specified':
+          return 'specified'
         case 'local':
           return 'users'
         default:

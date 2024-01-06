@@ -53,7 +53,7 @@ const MASTODON_DENY_USER_URL = id => `/api/v1/follow_requests/${id}/reject`
 const MASTODON_DIRECT_MESSAGES_TIMELINE_URL = '/api/v1/timelines/direct'
 const MASTODON_PUBLIC_TIMELINE = '/api/v1/timelines/public'
 const MASTODON_USER_HOME_TIMELINE_URL = '/api/v1/timelines/home'
-const AKKOMA_BUBBLE_TIMELINE_URL = '/api/v1/timelines/bubble'
+const AKKOMA_BUBBLE_TIMELINE_URL = 'api/notes/bubble-timeline'
 const MASTODON_STATUS_URL = id => `/api/v1/statuses/${id}`
 const MASTODON_STATUS_CONTEXT_URL = id => `/api/v1/statuses/${id}/context`
 const MASTODON_STATUS_SOURCE_URL = id => `/api/v1/statuses/${id}/source`
@@ -67,7 +67,7 @@ const MASTODON_LIST_ACCOUNTS_URL = id => `/api/v1/lists/${id}/accounts`
 const MASTODON_TAG_TIMELINE_URL = tag => `/api/v1/timelines/tag/${tag}`
 const MASTODON_BOOKMARK_TIMELINE_URL = '/api/v1/bookmarks'
 const MASTODON_USER_BLOCKS_URL = '/api/v1/blocks/'
-const MASTODON_USER_MUTES_URL = '/api/v1/mutes/'
+const MASTODON_USER_MUTES_URL = '/api/v1/mutes'
 const MASTODON_BLOCK_USER_URL = id => `/api/v1/accounts/${id}/block`
 const MASTODON_UNBLOCK_USER_URL = id => `/api/v1/accounts/${id}/unblock`
 const MASTODON_MUTE_USER_URL = id => `/api/v1/accounts/${id}/mute`
@@ -79,6 +79,7 @@ const MASTODON_SET_NOTE_URL = id => `/api/v1/accounts/${id}/note`
 const MASTODON_BOOKMARK_STATUS_URL = id => `/api/v1/statuses/${id}/bookmark`
 const MASTODON_UNBOOKMARK_STATUS_URL = id => `/api/v1/statuses/${id}/unbookmark`
 const MASTODON_POST_STATUS_URL = '/api/v1/statuses'
+const MISSKEY_POST_NOTE_URL = '/api/notes/create'
 const MASTODON_MEDIA_UPLOAD_URL = '/api/v1/media'
 const MASTODON_VOTE_URL = id => `/api/v1/polls/${id}/votes`
 const MASTODON_POLL_URL = id => `/api/v1/polls/${id}`
@@ -103,8 +104,8 @@ const PLEROMA_EMOJI_REACTIONS_URL = id => `/api/v1/pleroma/statuses/${id}/reacti
 const PLEROMA_EMOJI_REACT_URL = (id, emoji) => `/api/v1/pleroma/statuses/${id}/reactions/${emoji}`
 const PLEROMA_EMOJI_UNREACT_URL = (id, emoji) => `/api/v1/pleroma/statuses/${id}/reactions/${emoji}`
 const PLEROMA_BACKUP_URL = '/api/v1/pleroma/backups'
-const PLEROMA_ANNOUNCEMENTS_URL = '/api/v1/pleroma/admin/announcements'
-const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/v1/pleroma/admin/announcements'
+const PLEROMA_ANNOUNCEMENTS_URL = '/api/announcements'
+const PLEROMA_POST_ANNOUNCEMENT_URL = '/api/admin/announcements/create'
 const PLEROMA_EDIT_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 const PLEROMA_DELETE_ANNOUNCEMENT_URL = id => `/api/v1/pleroma/admin/announcements/${id}`
 const AKKOMA_SETTING_PROFILE_URL = (name) => `/api/v1/akkoma/frontend_settings/pleroma-fe/${name}`
@@ -344,7 +345,7 @@ const fetchUser = ({ id, credentials }) => {
 }
 
 const fetchUserRelationship = ({ id, credentials }) => {
-  let url = `${MASTODON_USER_RELATIONSHIPS_URL}/?id=${id}`
+  let url = `${MASTODON_USER_RELATIONSHIPS_URL}?id=${id}`
   return fetch(url, { headers: authHeaders(credentials) })
     .then((response) => {
       return new Promise((resolve, reject) => response.json()
@@ -878,15 +879,30 @@ const postStatus = ({
   const form = new FormData()
   const pollOptions = poll.options || []
 
-  form.append('status', status)
+  form.append('text', status)
   form.append('source', 'Pleroma FE')
-  if (spoilerText) form.append('spoiler_text', spoilerText)
-  if (visibility) form.append('visibility', visibility)
-  if (sensitive) form.append('sensitive', sensitive)
+  if (spoilerText) form.append('cw', spoilerText)
+  if (visibility){
+    var misskey_visibility = "public"
+    switch (visibility) {
+      case 'unlisted':
+        misskey_visibility = "home"
+        break;
+      case 'private':
+        misskey_visibility = "followers"
+        break;
+      case 'direct':
+        misskey_visibility = "specified"
+        break;
+
+    }
+    form.append('visibility', misskey_visibility)
+  }
+  if (sensitive) form.append('cw', spoilerText)
   if (contentType) form.append('content_type', contentType)
   if (language) form.append('language', language)
   mediaIds.forEach(val => {
-    form.append('media_ids[]', val)
+    form.append('mediaIds[]', val)
   })
   if (pollOptions.some(option => option !== '')) {
     const normalizedPoll = {
@@ -902,7 +918,7 @@ const postStatus = ({
     })
   }
   if (inReplyToStatusId) {
-    form.append('in_reply_to_id', inReplyToStatusId)
+    form.append('replyId', inReplyToStatusId)
   }
   if (quoteId) {
     form.append('quote_id', quoteId)
@@ -912,12 +928,13 @@ const postStatus = ({
   }
 
   let postHeaders = authHeaders(credentials)
+  postHeaders["Content-Type"] = 'application/json'
   if (idempotencyKey) {
     postHeaders['idempotency-key'] = idempotencyKey
   }
 
-  return fetch(MASTODON_POST_STATUS_URL, {
-    body: form,
+  return fetch(MISSKEY_POST_NOTE_URL, {
+    body: JSON.stringify(Object.fromEntries(form)),
     method: 'POST',
     headers: postHeaders
   })
@@ -941,11 +958,11 @@ const editStatus = ({
   const pollOptions = poll.options || []
 
   form.append('status', status)
-  if (spoilerText) form.append('spoiler_text', spoilerText)
-  if (sensitive) form.append('sensitive', sensitive)
+  if (spoilerText) form.append('cw', spoilerText)
+  if (sensitive) form.append('cw', spoilerText)
   if (contentType) form.append('content_type', contentType)
   mediaIds.forEach(val => {
-    form.append('media_ids[]', val)
+    form.append('mediaIds[]', val)
   })
 
   if (pollOptions.some(option => option !== '')) {

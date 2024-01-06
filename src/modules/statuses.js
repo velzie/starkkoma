@@ -191,10 +191,12 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
   const addStatus = (data, showImmediately, addToTimeline = true) => {
     const result = addStatusToGlobalStorage(state, data)
     const status = result.item
-
+    
     if (result.new) {
       // We are mentioned in a post
+      
       if (status.type === 'status' && find(status.attentions, { id: user.id })) {
+        
         const mentions = state.timelines.mentions
 
         // Add the mention to the mentions timeline
@@ -205,6 +207,7 @@ const addNewStatuses = (state, { statuses, showImmediately = false, timeline, us
           sortTimeline(mentions)
         }
       }
+      
       if (status.visibility === 'direct') {
         const dms = state.timelines.dms
 

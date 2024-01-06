@@ -160,37 +160,37 @@ const config = {
     }
   },
   actions: {
-    syncSettings: (store) => {
-      store.commit('setOption', { name: 'profileVersion', value: store.state.profileVersion + 1 })
-      const notice = {
-        level: 'info',
-        messageKey: 'settings_profile.synchronizing',
-        messageArgs: { profile: store.state.profile },
-        timeout: 5000
-      }
-      store.dispatch('pushGlobalNotice', notice)
-      store.rootState.api.backendInteractor.saveSettingsProfile({
-        settings: store.state, profileName: store.state.profile, version: store.state.profileVersion
-      }).then(() => {
-        store.dispatch('removeGlobalNotice', notice)
-        store.dispatch('pushGlobalNotice', {
-          level: 'success',
-          messageKey: 'settings_profile.synchronized',
-          messageArgs: { profile: store.state.profile },
-          timeout: 2000
-        })
-        store.dispatch('listSettingsProfiles')
-      }).catch((err) => {
-        store.dispatch('removeGlobalNotice', notice)
-        store.dispatch('pushGlobalNotice', {
-          level: 'error',
-          messageKey: 'settings_profile.synchronization_error',
-          messageArgs: { error: err.message },
-          timeout: 5000
-        })
-        console.error(err)
-      })
-    },
+    // syncSettings: (store) => {
+    //   store.commit('setOption', { name: 'profileVersion', value: store.state.profileVersion + 1 })
+    //   const notice = {
+    //     level: 'info',
+    //     messageKey: 'settings_profile.synchronizing',
+    //     messageArgs: { profile: store.state.profile },
+    //     timeout: 5000
+    //   }
+    //   store.dispatch('pushGlobalNotice', notice)
+    //   store.rootState.api.backendInteractor.saveSettingsProfile({
+    //     settings: store.state, profileName: store.state.profile, version: store.state.profileVersion
+    //   }).then(() => {
+    //     store.dispatch('removeGlobalNotice', notice)
+    //     store.dispatch('pushGlobalNotice', {
+    //       level: 'success',
+    //       messageKey: 'settings_profile.synchronized',
+    //       messageArgs: { profile: store.state.profile },
+    //       timeout: 2000
+    //     })
+    //     store.dispatch('listSettingsProfiles')
+    //   }).catch((err) => {
+    //     store.dispatch('removeGlobalNotice', notice)
+    //     store.dispatch('pushGlobalNotice', {
+    //       level: 'error',
+    //       messageKey: 'settings_profile.synchronization_error',
+    //       messageArgs: { error: err.message },
+    //       timeout: 5000
+    //     })
+    //     console.error(err)
+    //   })
+    // },
     deleteSettingsProfile (store, name) {
       store.rootState.api.backendInteractor.deleteSettingsProfile({ profileName: name }).then(() => {
         store.dispatch('listSettingsProfiles')

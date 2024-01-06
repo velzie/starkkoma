@@ -96,7 +96,7 @@ export const parseUser = (data) => {
       output.instance = data.akkoma.instance
       output.status_ttl_days = data.akkoma.status_ttl_days
     }
-
+    output.relationship = {}
     if (data.pleroma) {
       const relationship = data.pleroma.relationship
 
@@ -261,8 +261,18 @@ export const parseSource = (data) => {
   return output
 }
 
-export const parseStatus = (data) => {
+export const parseStatus = (data_in) => {
+  var data = {}
   const output = {}
+  if (data_in.hasOwnProperty('createdNote'))
+  {
+    data = data_in.createdNote
+    data.is_post_verb = true // For status parser
+  }
+  else {
+    data = data_in
+  }
+
   const masto = data.hasOwnProperty('account')
 
   if (masto) {
@@ -282,8 +292,9 @@ export const parseStatus = (data) => {
 
     output.tags = data.tags
 
-    output.edited_at = data.edited_at
-
+    output.edited_at = data.hasOwnProperty('edited_at') ? data.edited_at : null
+    output.emoji_reactions = data.hasOwnProperty('emoji_reactions') ? data.emoji_reactions : []
+    
     if (data.pleroma) {
       const { pleroma } = data
       output.text = pleroma.content ? data.pleroma.content['text/plain'] : data.content
@@ -297,6 +308,9 @@ export const parseStatus = (data) => {
     } else {
       output.text = data.content
       output.summary = data.spoiler_text
+      output.statusnet_conversation_id = ( data.hasOwnProperty('in_reply_to_id') && data.in_reply_to_id != null) ? data.in_reply_to_id : data.id
+      output.parent_visible = true
+
     }
 
     if (data.akkoma) {
@@ -398,7 +412,7 @@ export const parseStatus = (data) => {
   if (data.hasOwnProperty('originalStatus')) {
     Object.assign(output, data.originalStatus)
   }
-
+ debugger;
   return output
 }
 
@@ -412,7 +426,7 @@ export const parseNotification = (data) => {
 
   if (masto) {
     output.type = mastoDict[data.type] || data.type
-    output.seen = data.pleroma.is_seen
+    //output.seen = data.pleroma.is_seen
     if (data.status) {
       output.status = isStatusNotification(output.type) ? parseStatus(data.status) : null
       output.action = output.status // TODO: Refactor, this is unneeded
