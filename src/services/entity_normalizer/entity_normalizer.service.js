@@ -22,7 +22,7 @@ const qvitterStatusType = (status) => {
   }
 
   if ((typeof status.uri === 'string' && status.uri.match(/(fave|objectType=Favourite)/)) ||
-      (typeof status.text === 'string' && status.text.match(/favorited/))) {
+    (typeof status.text === 'string' && status.text.match(/favorited/))) {
     return 'favorite'
   }
 
@@ -264,8 +264,7 @@ export const parseSource = (data) => {
 export const parseStatus = (data_in) => {
   var data = {}
   const output = {}
-  if (data_in.hasOwnProperty('createdNote'))
-  {
+  if (data_in.hasOwnProperty('createdNote')) {
     data = data_in.createdNote
     data.is_post_verb = true // For status parser
   }
@@ -294,7 +293,7 @@ export const parseStatus = (data_in) => {
 
     output.edited_at = data.hasOwnProperty('edited_at') ? data.edited_at : null
     output.emoji_reactions = data.hasOwnProperty('emoji_reactions') ? data.emoji_reactions : []
-    
+
     if (data.pleroma) {
       const { pleroma } = data
       output.text = pleroma.content ? data.pleroma.content['text/plain'] : data.content
@@ -308,7 +307,7 @@ export const parseStatus = (data_in) => {
     } else {
       output.text = data.content
       output.summary = data.spoiler_text
-      output.statusnet_conversation_id = ( data.hasOwnProperty('in_reply_to_id') && data.in_reply_to_id != null) ? data.in_reply_to_id : data.id
+      output.statusnet_conversation_id = (data.hasOwnProperty('in_reply_to_id') && data.in_reply_to_id != null) ? data.in_reply_to_id : data.id
       output.parent_visible = true
 
     }
@@ -412,7 +411,6 @@ export const parseStatus = (data_in) => {
   if (data.hasOwnProperty('originalStatus')) {
     Object.assign(output, data.originalStatus)
   }
- debugger;
   return output
 }
 

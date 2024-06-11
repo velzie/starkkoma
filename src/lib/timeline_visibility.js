@@ -1,5 +1,5 @@
-const timelineVisibleUnauthenticated =  (state, timeline) => (
-    state.instance.publicTimelineVisibility[timeline] ?? false
+const timelineVisibleUnauthenticated = (state, timeline) => (
+  state.instance.publicTimelineVisibility[timeline] ?? false
 );
 
 const currentUser = (state) => state.users.currentUser;
@@ -19,5 +19,7 @@ export const publicTimelineVisible = (state) => (
 );
 
 export const bubbleTimelineVisible = (state) => (
-  state.instance.localBubbleInstances.length > 0 && currentUserOrTimelineVisibleUnauthenticated(state, 'bubble')
+  //state.instance.localBubbleInstances.length > 0 &&
+  // TODO does sharkey have a way to see this?
+  currentUserOrTimelineVisibleUnauthenticated(state, 'bubble')
 );
