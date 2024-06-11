@@ -75,6 +75,9 @@ export default {
         'background-color': this.enableMask ? '' : 'transparent'
       }
     },
+    instanceFavicon(){ 
+      return this.$store.state.instance.iconUrl
+    },
     logoBgStyle () {
       return Object.assign({
         'margin': `${this.$store.state.instance.logoMargin} 0`,

@@ -67,6 +67,17 @@ const resolveLanguage = (instanceLanguages) => {
 
 const getInstanceConfig = async ({ store }) => {
   try {
+    const metares = await fetch('/api/meta', { method: "POST", body: JSON.stringify({}), headers:{ "content-type":"application/json" } });
+    if (metares.ok) {
+      const data = await metares.json();
+
+
+      console.log(data)
+      store.dispatch('setInstanceOption', { name: 'iconUrl', value: data.iconUrl });
+    } else {
+      throw (metares)
+    }
+
     const res = await preloadFetch('/api/v1/instance')
     if (res.ok) {
       const data = await res.json()
@@ -98,7 +109,7 @@ const getBackendProvidedConfig = async ({ store }) => {
     //const res = await window.fetch('/api/pleroma/frontend_configurations')
     if (true) {
       //const data = await res.json()
-      const data = {"masto_fe":{"showInstanceSpecificPanel":true},"pleroma_fe":{"alwaysShowSubjectInput":true,"background":"/images/city.jpg","collapseMessageWithSubject":true,"conversationDisplay":"linear","disableChat":false,"greentext":false,"hideFilteredStatuses":true,"hideMutedPosts":true,"hidePostStats":false,"hideSitename":false,"hideUserStats":false,"loginMethod":"token","logo":"/static/logo.svg","logoMargin":".1em","logoMask":true,"noAttachmentLinks":false,"nsfwCensorImage":"","postContentType":"text/plain","redirectRootLogin":"/main/friends","redirectRootNoLogin":"/main/public","renderMisskeyMarkdown":true,"scopeCopy":true,"showFeaturesPanel":true,"showInstanceSpecificPanel":false,"sidebarRight":false,"subjectLineBehavior":"email","theme":"pleroma-dark","webPushNotifications":false}}
+      const data = { "masto_fe": { "showInstanceSpecificPanel": true }, "pleroma_fe": { "alwaysShowSubjectInput": true, "background": "/images/city.jpg", "collapseMessageWithSubject": true, "conversationDisplay": "linear", "disableChat": false, "greentext": false, "hideFilteredStatuses": true, "hideMutedPosts": true, "hidePostStats": false, "hideSitename": false, "hideUserStats": false, "loginMethod": "token", "logo": "/static/logo.svg", "logoMargin": ".1em", "logoMask": true, "noAttachmentLinks": false, "nsfwCensorImage": "", "postContentType": "text/plain", "redirectRootLogin": "/main/friends", "redirectRootNoLogin": "/main/public", "renderMisskeyMarkdown": true, "scopeCopy": true, "showFeaturesPanel": true, "showInstanceSpecificPanel": false, "sidebarRight": false, "subjectLineBehavior": "email", "theme": "pleroma-dark", "webPushNotifications": false } }
       return data.pleroma_fe
     } else {
       throw (res)
@@ -293,7 +304,7 @@ const getNodeInfo = async ({ store }) => {
       // store.dispatch('setInstanceOption', { name: 'bannerlimit', value: parseInt(configuration.media_attachments.image_size_limit) })
       // store.dispatch('setInstanceOption', { name: 'fieldsLimits', value: metadata.fieldsLimits })
 
-      store.dispatch('setInstanceOption', { name: 'restrictedNicknames', value: ["admin","instance.actor","instance.relay"] })
+      store.dispatch('setInstanceOption', { name: 'restrictedNicknames', value: ["admin", "instance.actor", "instance.relay"] })
       store.dispatch('setInstanceOption', { name: 'postFormats', value: ["text/x.misskeymarkdown"] })
 
       //const suggestions = metadata.suggestions
@@ -320,7 +331,7 @@ const getNodeInfo = async ({ store }) => {
       // })
 
       // store.dispatch('setInstanceOption', { name: 'federationPolicy', value: federation })
-      store.dispatch('setInstanceOption', { name: 'localBubbleInstances', value: [ ] })
+      store.dispatch('setInstanceOption', { name: 'localBubbleInstances', value: [] })
       // store.dispatch('setInstanceOption', {
       //   name: 'federating',
       //   value: typeof federation.enabled === 'undefined'

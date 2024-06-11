@@ -18,7 +18,7 @@
           <img
             v-if="!hideSiteFavicon"
             class="favicon"
-            src="/favicon.png"
+            :src="instanceFavicon"
           >
           <span
             v-if="!hideSiteName"

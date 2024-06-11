@@ -13,6 +13,10 @@ const defaultState = {
   textlimit: 5000,
   themeData: undefined,
   vapidPublicKey: undefined,
+  
+
+  // sharkey
+  iconUrl: undefined,
 
   // Stuff from static/config.json
   alwaysShowSubjectInput: true,
