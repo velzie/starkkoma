@@ -216,7 +216,7 @@ const config = {
     setOption ({ commit, dispatch }, { name, value, manual }) {
       commit('setOption', { name, value })
       if (manual === true) {
-        dispatch('syncSettings')
+        // dispatch('syncSettings')
       }
       switch (name) {
         case 'theme':
@@ -237,34 +237,34 @@ const config = {
       }
     },
     getSettingsProfile (store, forceUpdate = false) {
-      const profile = store.state.profile
-      store.rootState.api.backendInteractor.getSettingsProfile({ store, profileName: profile })
-        .then(({ settings, version }) => {
-          console.log('found settings version', version)
-          if (forceUpdate || (version > store.state.profileVersion)) {
-            store.commit('setOption', { name: 'profileVersion', value: version })
-            Object.entries(settings).forEach(([name, value]) => {
-              if (store.state[name] !== value) {
-                store.dispatch('setOption', { name, value })
-              }
-            })
-          } else {
-            console.log('settings are up to date')
-          }
-        })
-        .catch((err) => {
-          console.error(`could not fetch profile ${profile}`, err)
-          if (err.statusCode === 404) {
-            // create profile
-            store.dispatch('pushGlobalNotice', {
-              level: 'warning',
-              messageKey: 'settings_profile.creating',
-              messageArgs: { profile },
-              timeout: 5000
-            })
-            store.dispatch('syncSettings')
-          }
-        })
+      // const profile = store.state.profile
+      // store.rootState.api.backendInteractor.getSettingsProfile({ store, profileName: profile })
+      //   .then(({ settings, version }) => {
+      //     console.log('found settings version', version)
+      //     if (forceUpdate || (version > store.state.profileVersion)) {
+      //       store.commit('setOption', { name: 'profileVersion', value: version })
+      //       Object.entries(settings).forEach(([name, value]) => {
+      //         if (store.state[name] !== value) {
+      //           store.dispatch('setOption', { name, value })
+      //         }
+      //       })
+      //     } else {
+      //       console.log('settings are up to date')
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     console.error(`could not fetch profile ${profile}`, err)
+      //     if (err.statusCode === 404) {
+      //       // create profile
+      //       store.dispatch('pushGlobalNotice', {
+      //         level: 'warning',
+      //         messageKey: 'settings_profile.creating',
+      //         messageArgs: { profile },
+      //         timeout: 5000
+      //       })
+      //       // store.dispatch('syncSettings')
+      //     }
+      //   })
     }
   }
 }

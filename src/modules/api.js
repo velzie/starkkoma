@@ -316,10 +316,10 @@ const api = {
         })
     },
     listSettingsProfiles (store) {
-      store.state.backendInteractor.listSettingsProfiles({ store })
-        .then((data) => {
-          store.commit('setInstanceOption', { name: 'settingsProfiles', value: data })
-        })
+      // store.state.backendInteractor.listSettingsProfiles({ store })
+      //   .then((data) => {
+      //     store.commit('setInstanceOption', { name: 'settingsProfiles', value: data })
+      //   })
     },
     // Pleroma websocket
     setWsToken (store, token) {

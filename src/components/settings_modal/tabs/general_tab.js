@@ -137,7 +137,7 @@ const GeneralTab = {
     createSettingsProfile () {
       this.$store.dispatch('setOption', { name: 'profile', value: this.newProfileName })
       this.$store.dispatch('setOption', { name: 'profileVersion', value: 1 })
-      this.$store.dispatch('syncSettings')
+      // this.$store.dispatch('syncSettings')
       this.newProfileName = ''
     },
     forceSync () {

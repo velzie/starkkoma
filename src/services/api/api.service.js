@@ -1548,15 +1548,15 @@ const getSettingsProfile = ({ profileName, credentials }) => {
 }
 
 const saveSettingsProfile = ({ profileName, credentials, settings, version }) => {
-  return promisedRequest({
-    url: AKKOMA_SETTING_PROFILE_URL(profileName),
-    method: 'PUT',
-    credentials,
-    payload: {
-      settings,
-      version
-    }
-  })
+  // return promisedRequest({
+  //   url: AKKOMA_SETTING_PROFILE_URL(profileName),
+  //   method: 'PUT',
+  //   credentials,
+  //   payload: {
+  //     settings,
+  //     version
+  //   }
+  // })
 }
 
 const deleteSettingsProfile = ({ profileName, credentials }) => {
