@@ -561,6 +561,38 @@ const Status = {
     'isSuspendable': function (val) {
       this.suspendable = val
     }
+  },
+  async mounted () {
+    if (this.status.refetched) return;
+    let data = await fetch("/api/notes/show", {
+        "headers": {
+            "Content-Type": "application/json",
+        },
+        "referrer": "https://grimgreenfo.rest/",
+        "body": JSON.stringify({ "noteId": this.status.id, i: "JEg68SCqcTaFpvF5" }),
+        "method": "POST",
+        "mode": "cors"
+    });
+    if (data.ok) {
+        let json = await data.json();
+
+      for (let reaction of this.status.emoji_reactions) {
+        
+        let image = json.reactionEmojis[reaction.name.substring(1).substring(0, reaction.name.length - 2)];
+        if (image) {
+          reaction.url = image;
+        }else {
+
+          let codepoint = reaction.name.codePointAt(0);
+
+          const hexCode = codepoint.toString(16).toLowerCase();
+          const baseUrl = "https://twemoji.maxcdn.com/v/latest/72x72/";
+          const url = `${baseUrl}${hexCode}.png`;
+          reaction.url = url;
+        }
+
+      }
+    }
   }
 }
 

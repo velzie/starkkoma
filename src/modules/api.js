@@ -310,10 +310,10 @@ const api = {
     },
 
     getSupportedTranslationlanguages (store) {
-      store.state.backendInteractor.getSupportedTranslationlanguages({ store })
-        .then((data) => {
-          store.dispatch('setInstanceOption', { name: 'supportedTranslationLanguages', value: data })
-        })
+      // store.state.backendInteractor.getSupportedTranslationlanguages({ store })
+      //   .then((data) => {
+      //     store.dispatch('setInstanceOption', { name: 'supportedTranslationLanguages', value: data })
+      //   })
     },
     listSettingsProfiles (store) {
       // store.state.backendInteractor.listSettingsProfiles({ store })

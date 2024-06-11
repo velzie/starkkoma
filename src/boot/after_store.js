@@ -72,8 +72,10 @@ const getInstanceConfig = async ({ store }) => {
       const data = await metares.json();
 
 
-      console.log(data)
       store.dispatch('setInstanceOption', { name: 'iconUrl', value: data.iconUrl });
+      store.dispatch('setInstanceOption', { name: 'logo', value: data.iconUrl });
+      store.dispatch('setInstanceOption', { name: 'ads', value: data.ads });
+      store.dispatch('setInstanceOption', { name: 'background', value: data.backgroundImageUrl });
     } else {
       throw (metares)
     }
@@ -86,6 +88,7 @@ const getInstanceConfig = async ({ store }) => {
       // Get this from /api/meta
       const vapidPublicKey = ""
       store.dispatch('setInstanceOption', { name: 'textlimit', value: textlimit })
+
       store.dispatch('setInstanceOption', { name: 'accountApprovalRequired', value: data.approval_required })
       // don't override cookie if set
       if (!Cookies.get('userLanguage')) {
@@ -105,11 +108,45 @@ const getInstanceConfig = async ({ store }) => {
 }
 
 const getBackendProvidedConfig = async ({ store }) => {
+  // get instance conf
+  
   try {
-    //const res = await window.fetch('/api/pleroma/frontend_configurations')
+    console.log(store._state.data.instance)
+    // const res = await window.fetch('/api/meta')
     if (true) {
       //const data = await res.json()
-      const data = { "masto_fe": { "showInstanceSpecificPanel": true }, "pleroma_fe": { "alwaysShowSubjectInput": true, "background": "/images/city.jpg", "collapseMessageWithSubject": true, "conversationDisplay": "linear", "disableChat": false, "greentext": false, "hideFilteredStatuses": true, "hideMutedPosts": true, "hidePostStats": false, "hideSitename": false, "hideUserStats": false, "loginMethod": "token", "logo": "/static/logo.svg", "logoMargin": ".1em", "logoMask": true, "noAttachmentLinks": false, "nsfwCensorImage": "", "postContentType": "text/plain", "redirectRootLogin": "/main/friends", "redirectRootNoLogin": "/main/public", "renderMisskeyMarkdown": true, "scopeCopy": true, "showFeaturesPanel": true, "showInstanceSpecificPanel": false, "sidebarRight": false, "subjectLineBehavior": "email", "theme": "pleroma-dark", "webPushNotifications": false } }
+      const data = { 
+        "masto_fe": { "showInstanceSpecificPanel": true },
+        "pleroma_fe": { 
+          "alwaysShowSubjectInput": true,
+          // "background": store._state.data.instance.backgroundUrl,
+          "collapseMessageWithSubject": true, "conversationDisplay": "linear",
+          "disableChat": false,
+          "greentext": false,
+          "hideFilteredStatuses": true,
+          "hideMutedPosts": true,
+          "hidePostStats": false,
+          "hideSitename": false,
+          "hideUserStats": false,
+          "loginMethod": "token",
+          "logo": undefined, 
+          "logoMargin": ".1em",
+          "logoMask": false,
+          "noAttachmentLinks": false,
+          "nsfwCensorImage": "",
+          "postContentType": "text/plain",
+          "redirectRootLogin": "/main/friends",
+          "redirectRootNoLogin": "/main/public",
+          "renderMisskeyMarkdown": true,
+          "scopeCopy": true,
+          "showFeaturesPanel": true,
+          "showInstanceSpecificPanel": false,
+          "sidebarRight": false,
+          "subjectLineBehavior": "email",
+          "theme": "pleroma-dark",
+          "webPushNotifications": false
+        }
+      }
       return data.pleroma_fe
     } else {
       throw (res)

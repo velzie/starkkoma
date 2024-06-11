@@ -60,6 +60,7 @@ const EmojiReactions = {
       }
     },
     reactWith (emoji) {
+      console.log(this.status)
       this.$store.dispatch('reactWithEmoji', { id: this.status.id, emoji })
       const emojiObject = findEmojiByReplacement(this.$store.state, emoji)
       this.$store.commit('emojiUsed', emojiObject)

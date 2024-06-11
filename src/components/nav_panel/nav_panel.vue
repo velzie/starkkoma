@@ -25,30 +25,31 @@
             <TimelineMenuContent class="timelines" />
           </div>
         </li>
-        <li v-if="currentUser">
-          <router-link
-            class="menu-item"
-            :to="{ name: 'lists' }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="list"
-            />{{ $t("nav.lists") }}
-          </router-link>
-        </li>
-        <li v-if="currentUser">
-          <router-link
-            class="menu-item"
-            :to="{ name: 'interactions', params: { username: currentUser.screen_name } }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="bolt"
-            />{{ $t("nav.interactions") }}
-          </router-link>
-        </li>
+        <!-- disabled: lists don't work -->
+        <!-- <li v-if="currentUser"> -->
+        <!--   <router-link -->
+        <!--     class="menu-item" -->
+        <!--     :to="{ name: 'lists' }" -->
+        <!--   > -->
+        <!--     <FAIcon -->
+        <!--       fixed-width -->
+        <!--       class="fa-scale-110" -->
+        <!--       icon="list" -->
+        <!--     />{{ $t("nav.lists") }} -->
+        <!--   </router-link> -->
+        <!-- </li> -->
+        <!-- <li v-if="currentUser"> -->
+        <!--   <router-link -->
+        <!--     class="menu-item" -->
+        <!--     :to="{ name: 'interactions', params: { username: currentUser.screen_name } }" -->
+        <!--   > -->
+        <!--     <FAIcon -->
+        <!--       fixed-width -->
+        <!--       class="fa-scale-110" -->
+        <!--       icon="bolt" -->
+        <!--     />{{ $t("nav.interactions") }} -->
+        <!--   </router-link> -->
+        <!-- </li> -->
         <li v-if="currentUser && currentUser.locked">
           <router-link
             class="menu-item"
@@ -67,36 +68,36 @@
             </span>
           </router-link>
         </li>
-        <li>
-          <router-link
-            class="menu-item"
-            :to="{ name: 'about' }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="info-circle"
-            />{{ $t("nav.about") }}
-          </router-link>
-        </li>
-        <li v-if="currentUser">
-          <router-link
-            class="menu-item"
-            :to="{ name: 'announcements' }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110"
-              icon="bullhorn"
-            />{{ $t('nav.announcements') }}
-            <span
-              v-if="unreadAnnouncementCount > 0"
-              class="badge badge-notification"
-            >
-              {{ unreadAnnouncementCount }}
-            </span>
-          </router-link>
-        </li>
+        <!-- <li> -->
+        <!--   <router-link -->
+        <!--     class="menu-item" -->
+        <!--     :to="{ name: 'about' }" -->
+        <!--   > -->
+        <!--     <FAIcon -->
+        <!--       fixed-width -->
+        <!--       class="fa-scale-110" -->
+        <!--       icon="info-circle" -->
+        <!--     />{{ $t("nav.about") }} -->
+        <!--   </router-link> -->
+        <!-- </li> -->
+        <!-- <li v-if="currentUser"> -->
+        <!--   <router-link -->
+        <!--     class="menu-item" -->
+        <!--     :to="{ name: 'announcements' }" -->
+        <!--   > -->
+        <!--     <FAIcon -->
+        <!--       fixed-width -->
+        <!--       class="fa-scale-110" -->
+        <!--       icon="bullhorn" -->
+        <!--     />{{ $t('nav.announcements') }} -->
+        <!--     <span -->
+        <!--       v-if="unreadAnnouncementCount > 0" -->
+        <!--       class="badge badge-notification" -->
+        <!--     > -->
+        <!--       {{ unreadAnnouncementCount }} -->
+        <!--     </span> -->
+        <!--   </router-link> -->
+        <!-- </li> -->
       </ul>
     </div>
   </div>

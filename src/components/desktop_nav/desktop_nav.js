@@ -76,6 +76,8 @@ export default {
       }
     },
     instanceFavicon(){ 
+      // TODO: hack hack hack bad
+      document.querySelector('link[rel="icon"]').href = this.$store.state.instance.iconUrl;
       return this.$store.state.instance.iconUrl
     },
     logoBgStyle () {

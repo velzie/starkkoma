@@ -81,54 +81,55 @@
           </router-link>
         </div>
       </div>
-      <router-link
-        class="logo"
-        :to="{ name: 'root' }"
-        :style="logoBgStyle"
-      >
-        <div
-          class="mask"
-          :style="logoMaskStyle"
-        />
-        <img
-          :src="logo"
-          :style="logoStyle"
-        >
-      </router-link>
+      <!-- this isn't broken it's just ugly as fuck -->
+      <!-- <router-link -->
+      <!--   class="logo" -->
+      <!--   :to="{ name: 'root' }" -->
+      <!--   :style="logoBgStyle" -->
+      <!-- > -->
+      <!--   <div -->
+      <!--     class="mask" -->
+      <!--     :style="logoMaskStyle" -->
+      <!--   /> -->
+      <!--   <img -->
+      <!--     :src="logo" -->
+      <!--     :style="logoStyle" -->
+      <!--   > -->
+      <!-- </router-link> -->
       <div class="item right actions">
-        <search-bar
-          v-if="currentUser || !privateMode"
-          @toggled="onSearchBarToggled"
-          @click.stop
-        />
+        <!-- <search-bar -->
+        <!--   v-if="currentUser || !privateMode" -->
+        <!--   @toggled="onSearchBarToggled" -->
+        <!--   @click.stop -->
+        <!-- /> -->
         <div
           v-if="(currentUser || !privateMode) && showNavShortcuts"
           class="nav-items right"
         >
-          <router-link
-            v-if="currentUser"
-            class="nav-icon"
-            :to="{ name: 'interactions', params: { username: currentUser.screen_name } }"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110 fa-old-padding"
-              icon="bolt"
-              :title="$t('nav.interactions')"
-            />
-          </router-link>
-          <router-link
-            v-if="currentUser"
-            :to="{ name: 'lists' }"
-            class="nav-icon"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110 fa-old-padding"
-              icon="list"
-              :title="$t('nav.lists')"
-            />
-          </router-link>
+          <!-- <router-link -->
+          <!--   v-if="currentUser" -->
+          <!--   class="nav-icon" -->
+          <!--   :to="{ name: 'interactions', params: { username: currentUser.screen_name } }" -->
+          <!-- > -->
+          <!--   <FAIcon -->
+          <!--     fixed-width -->
+          <!--     class="fa-scale-110 fa-old-padding" -->
+          <!--     icon="bolt" -->
+          <!--     :title="$t('nav.interactions')" -->
+          <!--   /> -->
+          <!-- </router-link> -->
+          <!-- <router-link -->
+          <!--   v-if="currentUser" -->
+          <!--   :to="{ name: 'lists' }" -->
+          <!--   class="nav-icon" -->
+          <!-- > -->
+          <!--   <FAIcon -->
+          <!--     fixed-width -->
+          <!--     class="fa-scale-110 fa-old-padding" -->
+          <!--     icon="list" -->
+          <!--     :title="$t('nav.lists')" -->
+          <!--   /> -->
+          <!-- </router-link> -->
           <router-link
             v-if="currentUser"
             :to="{ name: 'bookmarks' }"
