@@ -564,33 +564,45 @@ const Status = {
   },
   async mounted () {
     if (this.status.refetched) return;
-    let data = await fetch("/api/notes/show", {
-        "headers": {
-            "Content-Type": "application/json",
-        },
-        "referrer": "https://grimgreenfo.rest/",
-        "body": JSON.stringify({ "noteId": this.status.id, i: "JEg68SCqcTaFpvF5" }),
-        "method": "POST",
-        "mode": "cors"
-    });
-    if (data.ok) {
-        let json = await data.json();
 
-      for (let reaction of this.status.emoji_reactions) {
-        
-        let image = json.reactionEmojis[reaction.name.substring(1).substring(0, reaction.name.length - 2)];
-        if (image) {
-          reaction.url = image;
-        }else {
+    if (this.status.emoji_reactions.length > 1 && this.status.emoji_reactions.some(reaction => reaction.name.startsWith(':'))) {
+      let data = await fetch("/api/notes/show", {
+          "headers": {
+              "Content-Type": "application/json",
+          },
+          "referrer": "https://grimgreenfo.rest/",
+          "body": JSON.stringify({ "noteId": this.status.id, }),
+          "method": "POST",
+          "mode": "cors"
+      });
+      if (data.ok) {
+          let json = await data.json();
 
-          let codepoint = reaction.name.codePointAt(0);
+        for (let reaction of this.status.emoji_reactions) {
+          
+          let image = json.reactionEmojis[reaction.name.substring(1).substring(0, reaction.name.length - 2)];
+          if (image) {
+            reaction.url = image;
+          }else {
 
-          const hexCode = codepoint.toString(16).toLowerCase();
-          const baseUrl = "https://twemoji.maxcdn.com/v/latest/72x72/";
-          const url = `${baseUrl}${hexCode}.png`;
-          reaction.url = url;
+            let codepoint = reaction.name.codePointAt(0);
+
+            const hexCode = codepoint.toString(16).toLowerCase();
+            const baseUrl = "https://twemoji.maxcdn.com/v/latest/72x72/";
+            const url = `${baseUrl}${hexCode}.png`;
+            reaction.url = url;
+          }
+
         }
+      }
+    } else {
+      for (let reaction of this.status.emoji_reactions) {
+        let codepoint = reaction.name.codePointAt(0);
 
+        const hexCode = codepoint.toString(16).toLowerCase();
+        const baseUrl = "https://twemoji.maxcdn.com/v/latest/72x72/";
+        const url = `${baseUrl}${hexCode}.png`;
+        reaction.url = url;
       }
     }
   }

@@ -1357,16 +1357,18 @@ const fetchEmojiReactions = ({ id, credentials }) => {
 
 const reactWithEmoji = ({ id, emoji, credentials }) => {
   return promisedRequest({
-    url: PLEROMA_EMOJI_REACT_URL(id, encodeURIComponent(emoji)),
-    method: 'PUT',
+    url: "/api/v1/statuses/" + id + "/react/" + encodeURIComponent(emoji),
+    method: 'POST',
+    payload: {},
     credentials
   }).then(parseStatus)
 }
 
 const unreactWithEmoji = ({ id, emoji, credentials }) => {
   return promisedRequest({
-    url: PLEROMA_EMOJI_UNREACT_URL(id, encodeURIComponent(emoji)),
-    method: 'DELETE',
+    url: "/api/v1/statuses/" + id + "/unreact/" + encodeURIComponent(emoji),
+    method: 'POST',
+    payload: {},
     credentials
   }).then(parseStatus)
 }

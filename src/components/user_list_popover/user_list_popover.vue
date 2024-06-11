@@ -1,6 +1,5 @@
 <template>
   <Popover
-    trigger="hover"
     placement="top"
     :offset="{ y: 5 }"
   >

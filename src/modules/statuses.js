@@ -546,10 +546,10 @@ export const mutations = {
       ...reaction,
       count: reaction.count + 1,
       me: true,
-      accounts: [
-        ...reaction.accounts,
-        currentUser
-      ]
+      // accounts: [
+      //   ...reaction.accounts,
+      //   currentUser
+      // ]
     }
 
     // Update count of existing reaction if it exists, otherwise append at the end
@@ -755,11 +755,11 @@ const statuses = {
       )
     },
     fetchEmojiReactionsBy ({ rootState, commit }, id) {
-      rootState.api.backendInteractor.fetchEmojiReactions({ id }).then(
-        emojiReactions => {
-          commit('addEmojiReactionsBy', { id, emojiReactions, currentUser: rootState.users.currentUser })
-        }
-      )
+      // rootState.api.backendInteractor.fetchEmojiReactions({ id }).then(
+      //   emojiReactions => {
+      //     commit('addEmojiReactionsBy', { id, emojiReactions, currentUser: rootState.users.currentUser })
+      //   }
+      // )
     },
     fetchFavs ({ rootState, commit }, id) {
       rootState.api.backendInteractor.fetchFavoritedByUsers({ id })
