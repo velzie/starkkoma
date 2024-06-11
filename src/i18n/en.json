@@ -320,7 +320,8 @@
         "search": "Search",
         "timeline": "Timeline",
         "timelines": "Timelines",
-        "twkn": "Known Network",
+        "twkn": "Global timeline",
+        "social": "Social timeline",
         "twkn_timeline_description": "Posts from the entire network",
         "user_search": "User Search",
         "who_to_follow": "Who to follow"

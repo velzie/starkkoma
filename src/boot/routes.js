@@ -24,6 +24,7 @@ import ListEdit from 'components/list_edit/list_edit.vue'
 import AnnouncementsPage from 'components/announcements_page/announcements_page.vue'
 import RegistrationRequestSent from 'components/registration_request_sent/registration_request_sent.vue'
 import AwaitingEmailConfirmation from 'components/awaiting_email_confirmation/awaiting_email_confirmation.vue'
+import SocialTimeline from '../components/social_timeline/social_timeline'
 
 export default (store) => {
   const validateAuthenticatedRoute = (to, from, next) => {
@@ -46,6 +47,7 @@ export default (store) => {
     { name: 'public-external-timeline', path: '/main/all', component: PublicAndExternalTimeline },
     { name: 'public-timeline', path: '/main/public', component: PublicTimeline },
     { name: 'bubble-timeline', path: '/main/bubble', component: BubbleTimeline },
+    { name: 'social-timeline', path: '/main/social', component: BubbleTimeline },
     { name: 'friends', path: '/main/friends', component: FriendsTimeline, beforeEnter: validateAuthenticatedRoute },
     { name: 'tag-timeline', path: '/tag/:tag', component: TagTimeline },
     { name: 'bookmarks', path: '/bookmarks', component: BookmarkTimeline },

@@ -16,7 +16,8 @@ export const timelineNames = () => {
     'dms': 'nav.dms',
     'public-timeline': 'nav.public_tl',
     'public-external-timeline': 'nav.twkn',
-    'bubble-timeline': 'nav.bubble_timeline'
+    'bubble-timeline': 'nav.bubble_timeline',
+    'social-timeline': 'nav.social_timeline',
   }
 }
 

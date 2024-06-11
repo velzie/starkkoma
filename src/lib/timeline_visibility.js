@@ -11,7 +11,8 @@ const currentUserOrTimelineVisibleUnauthenticated = (state, timeline) => (
 const federatedTimelineAvailable = (state) => state.instance.federatedTimelineAvailable;
 
 export const federatedTimelineVisible = (state) => (
-  federatedTimelineAvailable(state) && currentUserOrTimelineVisibleUnauthenticated(state, 'federated')
+  //federatedTimelineAvailable(state) &&  should always be available?
+  currentUserOrTimelineVisibleUnauthenticated(state, 'federated')
 );
 
 export const publicTimelineVisible = (state) => (

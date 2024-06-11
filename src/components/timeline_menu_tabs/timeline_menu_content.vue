@@ -32,6 +32,22 @@
         >{{ $t("nav.bubble_timeline") }}</span>
       </router-link>
     </li>
+    <li v-if="bubbleTimelineVisible">
+      <router-link
+        class="menu-item"
+        :to="{ name: 'social-timeline' }"
+      >
+        <FAIcon
+          fixed-width
+          class="fa-scale-110 fa-old-padding "
+          :icon="['far', 'circle']"
+        />
+        <span
+          :title="$t('nav.bubble_timeline_description')"
+          :aria-label="$t('nav.bubble_timeline_description')"
+        >{{ $t("nav.social_timeline") }}</span>
+      </router-link>
+    </li>
     <li v-if="publicTimelineVisible">
       <router-link
         class="menu-item"

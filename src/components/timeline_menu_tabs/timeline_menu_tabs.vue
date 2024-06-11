@@ -40,6 +40,18 @@
       />
     </router-link>
     <router-link
+      v-if="bubbleTimelineVisible"
+      :to="{ name: 'social-timeline' }"
+      class="nav-icon"
+    >
+      <FAIcon
+        fixed-width
+        class="fa-scale-110 fa-old-padding"
+        :icon="['far', 'circle']"
+        :title="$t('nav.bubble_timeline_description')"
+      />
+    </router-link>
+    <router-link
       v-if="federatedTimelineVisible"
       :to="{ name: 'public-external-timeline' }"
       class="nav-icon"
