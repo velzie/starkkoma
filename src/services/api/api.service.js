@@ -814,22 +814,22 @@ const verifyCredentials = (user) => {
 }
 
 const favorite = ({ id, credentials }) => {
-  return promisedRequest({ url: MASTODON_FAVORITE_URL(id), method: 'POST', credentials })
+  return promisedRequest({ url: MASTODON_FAVORITE_URL(id), method: 'POST', credentials, payload: {} })
     .then((data) => parseStatus(data))
 }
 
 const unfavorite = ({ id, credentials }) => {
-  return promisedRequest({ url: MASTODON_UNFAVORITE_URL(id), method: 'POST', credentials })
+  return promisedRequest({ url: MASTODON_UNFAVORITE_URL(id), method: 'POST', credentials, payload: {} })
     .then((data) => parseStatus(data))
 }
 
 const retweet = ({ id, credentials }) => {
-  return promisedRequest({ url: MASTODON_RETWEET_URL(id), method: 'POST', credentials })
+  return promisedRequest({ url: MASTODON_RETWEET_URL(id), method: 'POST', credentials, payload: {} })
     .then((data) => parseStatus(data))
 }
 
 const unretweet = ({ id, credentials }) => {
-  return promisedRequest({ url: MASTODON_UNRETWEET_URL(id), method: 'POST', credentials })
+  return promisedRequest({ url: MASTODON_UNRETWEET_URL(id), method: 'POST', credentials, payload: {} })
     .then((data) => parseStatus(data))
 }
 
