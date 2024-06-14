@@ -381,10 +381,13 @@ const conversation = {
   methods: {
     fetchConversation () {
       if (this.status) {
-        this.$store.state.api.backendInteractor.fetchConversation({ id: this.statusId })
+        // misskey specific: if the status is a boosted status, we need to fetch the original status
+        let id = this.status.retweeted_status ? this.status.retweeted_status.statusnet_conversation_id : this.statusId;
+        this.$store.state.api.backendInteractor.fetchConversation({ id })
           .then(({ ancestors, descendants }) => {
             this.$store.dispatch('addNewStatuses', { statuses: ancestors })
             this.$store.dispatch('addNewStatuses', { statuses: descendants })
+
             this.setHighlight(this.originalStatusId)
           })
       } else {
