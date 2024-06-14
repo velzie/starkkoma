@@ -81,20 +81,20 @@
       </router-link>
     </li>
     <li v-if="currentUser">
-      <router-link
-        class="menu-item"
-        :to="{ name: 'bookmarks'}"
-      >
-        <FAIcon
-          fixed-width
-          class="fa-scale-110 fa-old-padding "
-          icon="bookmark"
-        />
-        <span
-          :title="$t('nav.bookmarks')"
-          :aria-label="$t('nav.bookmarks')"
-        >{{ $t("nav.bookmarks") }}</span>
-      </router-link>
+      <!-- <router-link -->
+      <!--   class="menu-item" -->
+      <!--   :to="{ name: 'bookmarks'}" -->
+      <!-- > -->
+      <!--   <FAIcon -->
+      <!--     fixed-width -->
+      <!--     class="fa-scale-110 fa-old-padding " -->
+      <!--     icon="bookmark" -->
+      <!--   /> -->
+      <!--   <span -->
+      <!--     :title="$t('nav.bookmarks')" -->
+      <!--     :aria-label="$t('nav.bookmarks')" -->
+      <!--   >{{ $t("nav.bookmarks") }}</span> -->
+      <!-- </router-link> -->
     </li>
     <li v-if="currentUser">
       <router-link

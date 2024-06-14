@@ -55,18 +55,18 @@
               :title="$t('nav.public_tl')"
             />
           </router-link>
-          <router-link
-            v-if="bubbleTimelineVisible"
-            :to="{ name: 'bubble-timeline' }"
-            class="nav-icon"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110 fa-old-padding"
-              icon="circle"
-              :title="$t('nav.bubble_timeline')"
-            />
-          </router-link>
+          <!-- <router-link -->
+          <!--   v-if="bubbleTimelineVisible" -->
+          <!--   :to="{ name: 'bubble-timeline' }" -->
+          <!--   class="nav-icon" -->
+          <!-- > -->
+          <!--   <FAIcon -->
+          <!--     fixed-width -->
+          <!--     class="fa-scale-110 fa-old-padding" -->
+          <!--     icon="circle" -->
+          <!--     :title="$t('nav.bubble_timeline')" -->
+          <!--   /> -->
+          <!-- </router-link> -->
           <router-link
             v-if="federatedTimelineVisible"
             :to="{ name: 'public-external-timeline' }"
@@ -130,18 +130,18 @@
           <!--     :title="$t('nav.lists')" -->
           <!--   /> -->
           <!-- </router-link> -->
-          <router-link
-            v-if="currentUser"
-            :to="{ name: 'bookmarks' }"
-            class="nav-icon"
-          >
-            <FAIcon
-              fixed-width
-              class="fa-scale-110 fa-old-padding"
-              icon="bookmark"
-              :title="$t('nav.bookmarks')"
-            />
-          </router-link>
+          <!-- <router-link -->
+          <!--   v-if="currentUser" -->
+          <!--   :to="{ name: 'bookmarks' }" -->
+          <!--   class="nav-icon" -->
+          <!-- > -->
+          <!--   <FAIcon -->
+          <!--     fixed-width -->
+          <!--     class="fa-scale-110 fa-old-padding" -->
+          <!--     icon="bookmark" -->
+          <!--     :title="$t('nav.bookmarks')" -->
+          <!--   /> -->
+          <!-- </router-link> -->
         </div>
         <button
           class="button-unstyled nav-icon"

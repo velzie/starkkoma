@@ -286,7 +286,14 @@ export const parseStatus = (data_in) => {
     output.type = data.reblog ? 'retweet' : 'status'
     output.nsfw = data.sensitive
 
-    output.raw_html = data.content
+    function escapeHtml(html){
+      var text = document.createTextNode(html);
+      var p = document.createElement('p');
+      p.appendChild(text);
+      return p.innerHTML;
+    }
+
+    output.raw_html = escapeHtml(data.text)
     output.emojis = data.emojis
 
     output.tags = data.tags
@@ -411,6 +418,17 @@ export const parseStatus = (data_in) => {
   if (data.hasOwnProperty('originalStatus')) {
     Object.assign(output, data.originalStatus)
   }
+  
+
+  // sharkey stuff
+  output.fave_num = 0;
+  for (let emoji of output.emoji_reactions) {
+    if (emoji.name == '❤' || emoji.name == '⭐') {
+      output.fave_num += emoji.count;
+    }
+  }
+  output.emoji_reactions = output.emoji_reactions.filter(emoji => emoji.name != '❤' && emoji.name != '⭐');
+
   return output
 }
 

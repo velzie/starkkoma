@@ -30,8 +30,7 @@
       v-if="!mergedConfig.hidePostStats && status.fave_num > 0"
       class="action-counter"
     >
-    <!-- SHARKEY-SPECIFIC: disable favorite count because devs make them hearts for some reason -->
-    <!-- {{ status.fave_num }} -->
+    {{ status.fave_num }}
     </span>
   </div>
 </template>

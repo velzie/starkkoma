@@ -32,22 +32,23 @@
         >{{ $t("nav.public_tl") }}</span>
       </router-link>
     </li>
-    <li v-if="bubbleTimelineVisible">
-      <router-link
-        class="menu-item"
-        :to="{ name: 'bubble-timeline' }"
-      >
-        <FAIcon
-          fixed-width
-          class="fa-scale-110 fa-old-padding "
-          icon="circle"
-        />
-        <span
-          :title="$t('nav.bubble_timeline_description')"
-          :aria-label="$t('nav.bubble_timeline_description')"
-        >{{ $t("nav.bubble_timeline") }}</span>
-      </router-link>
-    </li>
+    <!-- no bubble timeline in mastoapi -->
+    <!-- <li v-if="bubbleTimelineVisible"> -->
+    <!--   <router-link -->
+    <!--     class="menu-item" -->
+    <!--     :to="{ name: 'bubble-timeline' }" -->
+    <!--   > -->
+    <!--     <FAIcon -->
+    <!--       fixed-width -->
+    <!--       class="fa-scale-110 fa-old-padding " -->
+    <!--       icon="circle" -->
+    <!--     /> -->
+    <!--     <span -->
+    <!--       :title="$t('nav.bubble_timeline_description')" -->
+    <!--       :aria-label="$t('nav.bubble_timeline_description')" -->
+    <!--     >{{ $t("nav.bubble_timeline") }}</span> -->
+    <!--   </router-link> -->
+    <!-- </li> -->
     <li v-if="federatedTimelineVisible">
       <router-link
         class="menu-item"
@@ -64,38 +65,38 @@
         >{{ $t("nav.twkn") }}</span>
       </router-link>
     </li>
-    <li v-if="currentUser">
-      <router-link
-        class="menu-item"
-        :to="{ name: 'bookmarks'}"
-      >
-        <FAIcon
-          fixed-width
-          class="fa-scale-110 fa-old-padding "
-          icon="bookmark"
-        />
-        <span
-          :title="$t('nav.bookmarks')"
-          :aria-label="$t('nav.bookmarks')"
-        >{{ $t("nav.bookmarks") }}</span>
-      </router-link>
-    </li>
-    <li v-if="currentUser">
-      <router-link
-        class="menu-item"
-        :to="{ name: 'dms', params: { username: currentUser.screen_name } }"
-      >
-        <FAIcon
-          fixed-width
-          class="fa-scale-110 fa-old-padding "
-          icon="envelope"
-        />
-        <span
-          :title="$t('nav.dms')"
-          :aria-label="$t('nav.dms')"
-        >{{ $t("nav.dms") }}</span>
-      </router-link>
-    </li>
+    <!-- <li v-if="currentUser"> -->
+    <!--   <router-link -->
+    <!--     class="menu-item" -->
+    <!--     :to="{ name: 'bookmarks'}" -->
+    <!--   > -->
+    <!--     <FAIcon -->
+    <!--       fixed-width -->
+    <!--       class="fa-scale-110 fa-old-padding " -->
+    <!--       icon="bookmark" -->
+    <!--     /> -->
+    <!--     <span -->
+    <!--       :title="$t('nav.bookmarks')" -->
+    <!--       :aria-label="$t('nav.bookmarks')" -->
+    <!--     >{{ $t("nav.bookmarks") }}</span> -->
+    <!--   </router-link> -->
+    <!-- </li> -->
+    <!-- <li v-if="currentUser"> -->
+    <!--   <router-link -->
+    <!--     class="menu-item" -->
+    <!--     :to="{ name: 'dms', params: { username: currentUser.screen_name } }" -->
+    <!--   > -->
+    <!--     <FAIcon -->
+    <!--       fixed-width -->
+    <!--       class="fa-scale-110 fa-old-padding " -->
+    <!--       icon="envelope" -->
+    <!--     /> -->
+    <!--     <span -->
+    <!--       :title="$t('nav.dms')" -->
+    <!--       :aria-label="$t('nav.dms')" -->
+    <!--     >{{ $t("nav.dms") }}</span> -->
+    <!--   </router-link> -->
+    <!-- </li> -->
   </ul>
 </template>
 

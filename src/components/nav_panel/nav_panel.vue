@@ -26,18 +26,18 @@
           </div>
         </li>
         <!-- disabled: lists don't work -->
-        <!-- <li v-if="currentUser"> -->
-        <!--   <router-link -->
-        <!--     class="menu-item" -->
-        <!--     :to="{ name: 'lists' }" -->
-        <!--   > -->
-        <!--     <FAIcon -->
-        <!--       fixed-width -->
-        <!--       class="fa-scale-110" -->
-        <!--       icon="list" -->
-        <!--     />{{ $t("nav.lists") }} -->
-        <!--   </router-link> -->
-        <!-- </li> -->
+        <li v-if="currentUser">
+          <router-link
+            class="menu-item"
+            :to="{ name: 'lists' }"
+          >
+            <FAIcon
+              fixed-width
+              class="fa-scale-110"
+              icon="list"
+            />{{ $t("nav.lists") }}
+          </router-link>
+        </li>
         <!-- <li v-if="currentUser"> -->
         <!--   <router-link -->
         <!--     class="menu-item" -->

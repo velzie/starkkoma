@@ -560,52 +560,48 @@ const Status = {
     },
     'isSuspendable': function (val) {
       this.suspendable = val
+    },
+    'status.emoji_reactions': {
+
+      // since the sharkey mastoapi doesn't support reactions we have to do an additional fetch to origin server for every note. not good!
+      async handler (reactions) {
+        for (let reaction of reactions) {
+          if (reaction.name.startsWith(':')) continue;
+          let codepoint = reaction.name.codePointAt(0);
+
+          const hexCode = codepoint.toString(16).toLowerCase();
+          const baseUrl = "https://twemoji.maxcdn.com/v/latest/72x72/";
+          const url = `${baseUrl}${hexCode}.png`;
+          reaction.url = url;
+        }
+        console.log(reactions);
+
+        if (reactions.some(reaction => reaction.name.startsWith(':'))) {
+          let data = await fetch("/api/notes/show", {
+              "headers": {
+                  "Content-Type": "application/json",
+              },
+              "referrer": "https://grimgreenfo.rest/",
+              "body": JSON.stringify({ "noteId": this.status.id, }),
+              "method": "POST",
+              "mode": "cors"
+          });
+          if (data.ok) {
+              let json = await data.json();
+
+            for (let reaction of reactions) {
+              if (!reaction.name.startsWith(':')) continue;
+              let image = json.reactionEmojis[reaction.name.substring(1).substring(0, reaction.name.length - 2)];
+              reaction.url = image;
+
+            }
+          }
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
-  async mounted () {
-    if (this.status.refetched) return;
-
-    if (this.status.emoji_reactions.length > 1 && this.status.emoji_reactions.some(reaction => reaction.name.startsWith(':'))) {
-      let data = await fetch("/api/notes/show", {
-          "headers": {
-              "Content-Type": "application/json",
-          },
-          "referrer": "https://grimgreenfo.rest/",
-          "body": JSON.stringify({ "noteId": this.status.id, }),
-          "method": "POST",
-          "mode": "cors"
-      });
-      if (data.ok) {
-          let json = await data.json();
-
-        for (let reaction of this.status.emoji_reactions) {
-          
-          let image = json.reactionEmojis[reaction.name.substring(1).substring(0, reaction.name.length - 2)];
-          if (image) {
-            reaction.url = image;
-          }else {
-
-            let codepoint = reaction.name.codePointAt(0);
-
-            const hexCode = codepoint.toString(16).toLowerCase();
-            const baseUrl = "https://twemoji.maxcdn.com/v/latest/72x72/";
-            const url = `${baseUrl}${hexCode}.png`;
-            reaction.url = url;
-          }
-
-        }
-      }
-    } else {
-      for (let reaction of this.status.emoji_reactions) {
-        let codepoint = reaction.name.codePointAt(0);
-
-        const hexCode = codepoint.toString(16).toLowerCase();
-        const baseUrl = "https://twemoji.maxcdn.com/v/latest/72x72/";
-        const url = `${baseUrl}${hexCode}.png`;
-        reaction.url = url;
-      }
-    }
-  }
 }
 
 export default Status

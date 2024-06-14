@@ -50,10 +50,10 @@ const MASTODON_FOLLOWERS_URL = id => `/api/v1/accounts/${id}/followers`
 const MASTODON_FOLLOW_REQUESTS_URL = '/api/v1/follow_requests'
 const MASTODON_APPROVE_USER_URL = id => `/api/v1/follow_requests/${id}/authorize`
 const MASTODON_DENY_USER_URL = id => `/api/v1/follow_requests/${id}/reject`
-const MASTODON_DIRECT_MESSAGES_TIMELINE_URL = '/api/v1/timelines/direct'
+const MASTODON_DIRECT_MESSAGES_TIMELINE_URL = '/api/v1/conversations'
 const MASTODON_PUBLIC_TIMELINE = '/api/v1/timelines/public'
 const MASTODON_USER_HOME_TIMELINE_URL = '/api/v1/timelines/home'
-const AKKOMA_BUBBLE_TIMELINE_URL = 'api/notes/bubble-timeline'
+const AKKOMA_BUBBLE_TIMELINE_URL = '/api/v1/timelines/bubble'
 const MASTODON_STATUS_URL = id => `/api/v1/statuses/${id}`
 const MASTODON_STATUS_CONTEXT_URL = id => `/api/v1/statuses/${id}/context`
 const MASTODON_STATUS_SOURCE_URL = id => `/api/v1/statuses/${id}/source`
